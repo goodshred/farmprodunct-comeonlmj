@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="OrdersMapper">
+
+	<!--<sql id="userColumns">USERNAME,NAME,PASSWORD,RIGHTS,STATUS,ROLE_ID</sql>-->
+	<!-- 订单列表(分页) -->
+	<select id="orderslistPage" parameterType="Page" resultType="pd" useCache="false">
+		select
+		o.id,
+		o.orders_datail_id,
+		o.sn,
+		o.address_id,
+		o.total,
+		o.status,
+		o.is_active,
+		o.createTime
+		from FRAM_ORDERS o,
+		where 1=1
+		<if test="pd.sn != null and pd.sn != ''"><!-- 角色检索 -->
+			and o.sn=#{pd.sn}
+		</if>
+		order by o.createTime desc
+	</select>
+
+	
+</mapper>
